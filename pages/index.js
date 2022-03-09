@@ -1,5 +1,6 @@
 import { Heading } from '@chakra-ui/react';
 import Head from 'next/head';
+import Auth from '../components/Auth';
 
 export default function Home() {
   return (
@@ -10,7 +11,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Heading color='primary'>Hello there brother</Heading>
+      <Auth />
     </div>
   );
 }
