@@ -3,7 +3,7 @@ import { supabase } from '../../utils/supabaseinit';
 
 const UserContext = createContext({ user: null, session: null });
 
-export const UserContextProvider = () => {
+export const UserContextProvider = (props) => {
   const [session, setSession] = useState(null);
   const [user, setUser] = useState(null);
 

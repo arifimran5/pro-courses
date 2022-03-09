@@ -3,7 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import theme from '../theme';
 import '../styles/globals.css';
 import { supabase } from '../utils/supabaseinit';
-
+import { UserContextProvider } from '../components/context/auth.context';
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
@@ -24,9 +24,11 @@ function MyApp({ Component, pageProps }) {
     });
   }
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <UserContextProvider>
+      <ChakraProvider theme={theme}>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </UserContextProvider>
   );
 }
 
