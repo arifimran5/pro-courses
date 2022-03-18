@@ -1,4 +1,4 @@
-import { Heading } from '@chakra-ui/react';
+import { Button, Heading } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Auth from '../components/Auth';
@@ -8,9 +8,6 @@ export default function Home() {
   const { session } = useUser();
   const router = useRouter();
 
-  if (session) {
-    router.push('/home');
-  }
   return (
     <div>
       <Head>
@@ -19,7 +16,11 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Auth />
+      {session ? (
+        <Button onClick={() => router.push('/home')}>Go to Home page</Button>
+      ) : (
+        <Button onClick={() => router.push('/login')}>Login/Register</Button>
+      )}
     </div>
   );
 }

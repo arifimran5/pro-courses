@@ -23,9 +23,20 @@ export const UserContextProvider = (props) => {
     };
   }, []);
 
+  async function logout() {
+    await supabase.auth.signOut();
+  }
+
+  const getUserNameFromEmail = (email) => {
+    const name = email.split('@')[0];
+    return name;
+  };
+
   const value = {
     session,
     user,
+    logout,
+    username: getUserNameFromEmail(user?.email ?? ''),
   };
   return <UserContext.Provider value={value} {...props} />;
 };
