@@ -1,7 +1,6 @@
-import { Button, Heading } from '@chakra-ui/react';
+import { Box, Button, Heading } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Auth from '../components/Auth';
 import { useUser } from '../components/context/auth.context';
 
 export default function Home() {
@@ -21,6 +20,10 @@ export default function Home() {
       ) : (
         <Button onClick={() => router.push('/login')}>Login/Register</Button>
       )}
+
+      <Box>
+        <Heading>Welcome to Pro-Courses</Heading>
+      </Box>
     </div>
   );
 }

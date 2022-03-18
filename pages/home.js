@@ -1,9 +1,13 @@
 import { Box, Button, Heading } from '@chakra-ui/react';
 import Head from 'next/head';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import { useUser } from '../components/context/auth.context';
+import { supabase } from '../utils/supabaseinit';
 const Home = () => {
+  // const router = useRouter();
   const { user, logout, username } = useUser();
+
   return (
     <Box>
       <Head>
@@ -17,5 +21,17 @@ const Home = () => {
     </Box>
   );
 };
+
+export async function getServerSideProps({ req }) {
+  const { user } = await supabase.auth.api.getUserByCookie(req);
+
+  if (!user) {
+    // If no user, redirect to index.
+    return { props: {}, redirect: { destination: '/', permanent: false } };
+  }
+
+  // If there is a user, return it.
+  return { props: { user } };
+}
 
 export default Home;
