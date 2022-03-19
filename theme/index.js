@@ -2,11 +2,12 @@ import { extendTheme, theme as base } from '@chakra-ui/react';
 
 const theme = extendTheme({
   colors: {
-    primary: '#00bcd4',
+    primary: '#5B89FF',
+    primary_dark: '#303030',
   },
   fonts: {
-    heading: `${base.fonts?.heading}`,
-    body: `${base.fonts?.body}`,
+    heading: `Inter,${base.fonts?.heading}`,
+    body: `Inter,${base.fonts?.body}`,
   },
 });
 

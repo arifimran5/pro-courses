@@ -8,8 +8,6 @@ const Home = ({ user }) => {
   const router = useRouter();
   const { logout, username } = useUser();
 
-  console.log({ user });
-
   const logoutHandler = () => {
     logout();
     router.push('/');

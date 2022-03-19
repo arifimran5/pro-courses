@@ -2,6 +2,8 @@ import { Box, Button, Heading } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useUser } from '../components/context/auth.context';
+import Main from '../components/Home/Main';
+import Navbar from '../components/Navbar';
 
 export default function Home() {
   const { session } = useUser();
@@ -15,14 +17,9 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      {session ? (
-        <Button onClick={() => router.push('/home')}>Go to Home page</Button>
-      ) : (
-        <Button onClick={() => router.push('/login')}>Login/Register</Button>
-      )}
-
-      <Box>
-        <Heading>Welcome to Pro-Courses</Heading>
+      <Box className='top-page'>
+        <Navbar />
+        <Main />
       </Box>
     </div>
   );
