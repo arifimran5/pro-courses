@@ -20,8 +20,9 @@ const Auth = () => {
   };
 
   const signIn = async (email) => {
-    const { error, data } = await supabase.auth.signIn({ email });
+    const { error } = await supabase.auth.signIn({ email });
     if (error) {
+      if (error.status == 429) alert('Wait for 60s and try again');
       console.log(error);
     } else {
       setSubmitted(true);
@@ -39,25 +40,26 @@ const Auth = () => {
   }
   return (
     <Flex justifyContent='center' alignItems='center' height='90vh'>
-      <Box boxShadow='md' py='8' px='6' bg='gray.50' borderRadius='lg'>
-        <Heading as='h2' size='lg' textAlign='center'>
+      <Box boxShadow='md' py='8' px='8' bg='transparent' borderRadius='lg'>
+        <Heading as='h2' size='lg'>
           Sign in with Magic link
         </Heading>
         <Stack width={{ sm: 'md' }} mt='4'>
           <form onSubmit={magicLinkSubmitHandelr}>
             <FormControl>
+              <FormHelperText>
+                we will send you an email with signIn Link
+              </FormHelperText>
               <Input
+                mt='2'
                 ref={emailRef}
                 id='email'
                 type='email'
                 placeholder='Enter your email'
               />
-              <FormHelperText>
-                we will send you an email with signIn Link
-              </FormHelperText>
             </FormControl>
             <FormControl mt='3'>
-              <Button size='sm' type='submit'>
+              <Button size='md' colorScheme='green' type='submit'>
                 Send
               </Button>
             </FormControl>

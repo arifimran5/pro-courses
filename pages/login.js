@@ -5,10 +5,10 @@ import Auth from '../components/Auth';
 import { useUser } from '../components/context/auth.context';
 
 const Login = () => {
-  const { session } = useUser();
+  const { user } = useUser();
   const router = useRouter();
 
-  if (session) {
+  if (user) {
     router.push('/home');
   }
   return (

@@ -4,9 +4,16 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useUser } from '../components/context/auth.context';
 import { supabase } from '../utils/supabaseinit';
-const Home = () => {
-  // const router = useRouter();
-  const { user, logout, username } = useUser();
+const Home = ({ user }) => {
+  const router = useRouter();
+  const { logout, username } = useUser();
+
+  console.log({ user });
+
+  const logoutHandler = () => {
+    logout();
+    router.push('/');
+  };
 
   return (
     <Box>
@@ -17,7 +24,7 @@ const Home = () => {
       </Head>
       <Heading>Hello {username}</Heading>
 
-      <Button onClick={() => logout()}>Logout</Button>
+      <Button onClick={logoutHandler}>Logout</Button>
     </Box>
   );
 };
@@ -26,11 +33,11 @@ export async function getServerSideProps({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req);
 
   if (!user) {
-    // If no user, redirect to index.
-    return { props: {}, redirect: { destination: '/', permanent: false } };
+    return {
+      props: { user: 'not-authenticated' },
+      redirect: { destination: '/', permanent: false },
+    };
   }
-
-  // If there is a user, return it.
   return { props: { user } };
 }
 
