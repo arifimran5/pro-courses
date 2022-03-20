@@ -3,8 +3,10 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { useUser } from '../components/context/auth.context';
+import PostList from '../components/Feed/PostList';
 import { supabase } from '../utils/supabaseinit';
-const Home = ({ user }) => {
+
+const Home = ({ user, data, error }) => {
   const router = useRouter();
   const { logout, username } = useUser();
 
@@ -23,20 +25,22 @@ const Home = ({ user }) => {
       <Heading>Hello {username}</Heading>
 
       <Button onClick={logoutHandler}>Logout</Button>
+      <PostList posts={data} />
     </Box>
   );
 };
 
 export async function getServerSideProps({ req }) {
+  const { data, error } = await supabase.from('post').select('*');
   const { user } = await supabase.auth.api.getUserByCookie(req);
 
   if (!user) {
     return {
-      props: { user: 'not-authenticated' },
+      props: {},
       redirect: { destination: '/', permanent: false },
     };
   }
-  return { props: { user } };
+  return { props: { user, data, error } };
 }
 
 export default Home;

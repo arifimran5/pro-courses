@@ -1,4 +1,5 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
+import { getUserNameFromEmail } from '../../utils/getUserNameUtil';
 import { supabase } from '../../utils/supabaseinit';
 
 const UserContext = createContext({ user: null, session: null });
@@ -26,11 +27,6 @@ export const UserContextProvider = (props) => {
   async function logout() {
     await supabase.auth.signOut();
   }
-
-  const getUserNameFromEmail = (email) => {
-    const name = email.split('@')[0];
-    return name;
-  };
 
   const value = {
     session,
