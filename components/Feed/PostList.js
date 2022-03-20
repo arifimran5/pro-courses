@@ -4,7 +4,7 @@ import Post from './Post';
 
 const PostList = ({ posts }) => {
   return (
-    <Flex justifyContent='center' mt='12'>
+    <Flex alignItems='center' flexDirection='column' gap='5' mt='12'>
       {posts.map((post) => (
         <Post key={post.id} {...post} />
       ))}

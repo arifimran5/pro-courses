@@ -12,7 +12,7 @@ const Post = (post) => {
       <Text color='gray.400'>~ {post.course_creator}</Text>
       <Text>post by: @{username}</Text>
       <Text>{post.review}</Text>
-      <Text>Free:{post.isFree ? '✅' : '💰'}</Text>
+      <Text>{post.isFree ? 'FREE ✅' : 'PAID 💰'}</Text>
       <Link color='blue.400' href={post.link}>
         Link
       </Link>
