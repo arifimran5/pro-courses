@@ -20,7 +20,7 @@ const Navbar = () => {
         {!session && (
           <Link href='/login' passHref>
             <Button
-              size='md'
+              size='sm'
               bg='primary'
               color='white'
               rightIcon={<ArrowForwardIcon />}
@@ -30,17 +30,19 @@ const Navbar = () => {
             </Button>
           </Link>
         )}
-        <Link href='/home' passHref>
-          <Button
-            size='sm'
-            bg='primary'
-            color='white'
-            rightIcon={<ArrowForwardIcon />}
-            _hover={{ bg: 'primary_dark' }}
-          >
-            Home Page
-          </Button>
-        </Link>
+        {session && (
+          <Link href='/home' passHref>
+            <Button
+              size='sm'
+              bg='primary'
+              color='white'
+              rightIcon={<ArrowForwardIcon />}
+              _hover={{ bg: 'primary_dark' }}
+            >
+              Home Page
+            </Button>
+          </Link>
+        )}
       </Flex>
       <Divider />
     </>

@@ -59,7 +59,13 @@ const Auth = () => {
               />
             </FormControl>
             <FormControl mt='3'>
-              <Button size='md' colorScheme='green' type='submit'>
+              <Button
+                size='md'
+                bg='primary'
+                color='white'
+                _hover={{ bg: 'primary_dark' }}
+                type='submit'
+              >
                 Send
               </Button>
             </FormControl>

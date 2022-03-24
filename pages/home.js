@@ -1,18 +1,24 @@
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Heading } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
 import { useUser } from '../components/context/auth.context';
+import AddPostModal from '../components/Feed/AddPostModal';
 import PostList from '../components/Feed/PostList';
 import { supabase } from '../utils/supabaseinit';
 
 const Home = ({ user, data, error }) => {
+  const [postData, setPostData] = useState(data);
   const router = useRouter();
   const { logout, username } = useUser();
 
   const logoutHandler = () => {
     logout();
     router.push('/');
+  };
+
+  const postHandler = (data) => {
+    setPostData([...postData, data]);
   };
 
   return (
@@ -25,7 +31,8 @@ const Home = ({ user, data, error }) => {
       <Heading>Hello {username}</Heading>
 
       <Button onClick={logoutHandler}>Logout</Button>
-      <PostList posts={data} />
+      <AddPostModal onPost={postHandler} />
+      <PostList posts={postData} />
     </Box>
   );
 };
