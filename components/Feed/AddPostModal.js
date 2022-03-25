@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -22,6 +22,7 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import { useUser } from '../context/auth.context';
 import { supabase } from '../../utils/supabaseinit';
@@ -36,16 +37,32 @@ const AddPostModal = ({ onPost }) => {
   const [isFree, setIsFree] = useState('free');
   const [rating, setRating] = useState(1);
   const [postCreateError, setPostCreateError] = useState(false);
+  const [formFocus, setFormFocus] = useState(false);
+  const [formError, setFormError] = useState(false);
 
   const { user } = useUser();
 
+  const initialRef = useRef();
+
   const submitHandler = (e) => {
     e.preventDefault();
-    setTitle('');
-    setCreator('');
-    setLink('');
-    setReview('');
-    postHandler();
+    if (
+      title == '' ||
+      creator == '' ||
+      link == '' ||
+      review == '' ||
+      !formFocus
+    ) {
+      setFormError(true);
+      alert('Please fill out all fields');
+      return;
+    } else {
+      postHandler();
+      setTitle('');
+      setCreator('');
+      setLink('');
+      setReview('');
+    }
   };
 
   const postHandler = async () => {
@@ -61,10 +78,10 @@ const AddPostModal = ({ onPost }) => {
     onPost({ ...data, id: uuidv4() });
     const { error } = await supabase.from('post').insert(data);
     if (error) {
-      console.log(error);
-      // alert(error);
+      setPostCreateError(true);
+      alert('Error creating post');
     } else {
-      alert('post created');
+      // alert('post created');
       onClose();
     }
   };
@@ -75,6 +92,7 @@ const AddPostModal = ({ onPost }) => {
       <Modal
         isOpen={isOpen}
         onClose={onClose}
+        initialFocusRef={initialRef}
         motionPreset='slideInBottom'
         size='xl'
         isCentered
@@ -84,7 +102,7 @@ const AddPostModal = ({ onPost }) => {
           <ModalHeader>Add Post</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form>
+            <form onFocus={() => setFormFocus(true)}>
               <Stack>
                 <FormControl>
                   <FormLabel htmlFor='title'>Course Title</FormLabel>
@@ -92,6 +110,7 @@ const AddPostModal = ({ onPost }) => {
                     id='title'
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
+                    ref={initialRef}
                     placeholder='Learn blockchain'
                   />
                 </FormControl>
