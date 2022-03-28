@@ -23,15 +23,18 @@ import Avatar from 'boring-avatars';
 
 const Home = ({ user, data, error }) => {
   const [postData, setPostData] = useState(data);
+  const [isFireFox, setFireFox] = useState(null);
   const router = useRouter();
   const { logout, username } = useUser();
 
-  // useEffect(() => {
-  //   let isFirefox =
-  //     window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-  //   console.log(isFirefox);
-  // }, []);
+  useEffect(() => {
+    let firefox =
+      window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
+    setFireFox(firefox ?? true);
+  }, []);
+
+  console.log(isFireFox);
   const logoutHandler = () => {
     logout();
     router.push('/');
@@ -48,13 +51,13 @@ const Home = ({ user, data, error }) => {
         <meta name='description' content='Home page of pro-courses' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Box position='sticky' top='0' filter='auto' backdropFilter='blur(2px)'>
+      <Box position='sticky' top='0' filter='auto' backdropFilter='blur(1px)'>
         <Flex
           justifyContent='space-between'
           alignItems='center'
           px={{ base: '4', sm: '14', md: '20', lg: '24' }}
           py='4'
-          bg='#fafafa70'
+          bg={isFireFox ? '#fafafa90' : '#fafafa50'}
         >
           <Heading fontWeight='black' fontSize='1.5rem' color='primary_dark'>
             <span style={{ color: '#5B89FF' }}>PRO</span> COURSES
