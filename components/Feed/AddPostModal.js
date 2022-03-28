@@ -75,7 +75,7 @@ const AddPostModal = ({ onPost }) => {
       rating: rating * 1,
       user: user.email,
     };
-    onPost({ ...data, id: uuidv4() });
+    onPost({ ...data, id: uuidv4(), created_at: new Date() });
     const { error } = await supabase.from('post').insert(data);
     if (error) {
       setPostCreateError(true);

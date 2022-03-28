@@ -1,11 +1,15 @@
-import { Box, Flex } from '@chakra-ui/react';
-import React from 'react';
-import Post from './Post';
+import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
+import { Flex } from '@chakra-ui/react';
+const Post = dynamic(() => import('./Post'));
 
 const PostList = ({ posts }) => {
+  const postsByDate = posts.sort(
+    (a, b) => Number(new Date(b.created_at)) - Number(new Date(a.created_at))
+  );
   return (
     <Flex alignItems='center' flexDirection='column' gap='5' mt='12' mb='5'>
-      {posts.map((post) => (
+      {postsByDate.map((post) => (
         <Post key={post.id} {...post} />
       ))}
     </Flex>

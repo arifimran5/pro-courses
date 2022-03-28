@@ -20,6 +20,7 @@ import AddPostModal from '../components/Feed/AddPostModal';
 import PostList from '../components/Feed/PostList';
 import { supabase } from '../utils/supabaseinit';
 import Avatar from 'boring-avatars';
+import Link from 'next/link';
 
 const Home = ({ user, data, error }) => {
   const [postData, setPostData] = useState(data);
@@ -34,14 +35,13 @@ const Home = ({ user, data, error }) => {
     setFireFox(firefox ?? true);
   }, []);
 
-  console.log(isFireFox);
   const logoutHandler = () => {
     logout();
     router.push('/');
   };
 
   const postHandler = (data) => {
-    setPostData([...postData, data]);
+    setPostData([data, ...postData]);
   };
 
   return (
@@ -57,25 +57,31 @@ const Home = ({ user, data, error }) => {
           alignItems='center'
           px={{ base: '4', sm: '14', md: '20', lg: '24' }}
           py='4'
-          bg={isFireFox ? '#fafafa90' : '#fafafa50'}
+          bg={isFireFox ? '#fafafa99' : '#fafafa50'}
         >
-          <Heading fontWeight='black' fontSize='1.5rem' color='primary_dark'>
-            <span style={{ color: '#5B89FF' }}>PRO</span> COURSES
-          </Heading>
+          <Link href='/home' passHref>
+            <a>
+              <Heading
+                fontWeight='black'
+                fontSize='1.5rem'
+                color='primary_dark'
+              >
+                <span style={{ color: '#5B89FF' }}>PRO</span> COURSES
+              </Heading>
+            </a>
+          </Link>
           <Box>
             <Menu>
               <MenuButton
                 as={IconButton}
                 border='none'
-                outline='1px solid #E6E6E650'
-                outlineOffset='2px'
                 aria-label='Options'
-                icon={<Avatar size='40' name={username} variant='beam' />}
+                icon={<Avatar size='42' name={username} variant='beam' />}
                 variant='outline'
               />
               <MenuList>
                 <MenuItem>
-                  <Heading size='md'>Hello {username} 👋</Heading>
+                  <Heading size='md'>Hi {username} 👋</Heading>
                 </MenuItem>
                 <MenuItem>
                   {' '}
