@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -7,10 +7,8 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
   IconButton,
   Flex,
-  Text,
   Divider,
 } from '@chakra-ui/react';
 import Head from 'next/head';
@@ -21,20 +19,11 @@ import PostList from '../components/Feed/PostList';
 import { supabase } from '../utils/supabaseinit';
 import Avatar from 'boring-avatars';
 
-const Home = ({ user, data, error }) => {
+const Home = ({ data }) => {
   const [postData, setPostData] = useState(data);
-  const [isFireFox, setFireFox] = useState(null);
   const router = useRouter();
   const { logout, username } = useUser();
 
-  useEffect(() => {
-    let firefox =
-      window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-
-    setFireFox(firefox ?? true);
-  }, []);
-
-  console.log(isFireFox);
   const logoutHandler = () => {
     logout();
     router.push('/');
@@ -57,7 +46,7 @@ const Home = ({ user, data, error }) => {
           alignItems='center'
           px={{ base: '4', sm: '14', md: '20', lg: '24' }}
           py='4'
-          bg={isFireFox ? '#fafafa90' : '#fafafa50'}
+          bg={'#fafafa80'}
         >
           <Heading fontWeight='black' fontSize='1.5rem' color='primary_dark'>
             <span style={{ color: '#5B89FF' }}>PRO</span> COURSES
@@ -98,7 +87,7 @@ const Home = ({ user, data, error }) => {
   );
 };
 
-export async function getServerSideProps({ req }) {
+export async function getStaticProps({ req }) {
   const { data, error } = await supabase.from('post').select('*');
   const { user } = await supabase.auth.api.getUserByCookie(req);
 
@@ -108,7 +97,7 @@ export async function getServerSideProps({ req }) {
       redirect: { destination: '/', permanent: false },
     };
   }
-  return { props: { user, data, error } };
+  return { props: { user, data, error }, revalidate: 20 };
 }
 
 export default Home;
