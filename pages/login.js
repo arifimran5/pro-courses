@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -11,6 +11,12 @@ const Login = () => {
 
   if (user) {
     router.push('/home');
+    return (
+      <Flex alignItems='center' mt='5' flexDirection='column'>
+        <Heading>Already logged in</Heading>
+        <Text>Redirecting to home Page</Text>
+      </Flex>
+    );
   }
   return (
     <Box>
