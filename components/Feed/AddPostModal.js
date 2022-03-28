@@ -87,7 +87,16 @@ const AddPostModal = ({ onPost }) => {
   };
   return (
     <>
-      <Button onClick={onOpen}>Add Review</Button>
+      <Button
+        as='a'
+        bg='primary'
+        width='100%'
+        color='white'
+        _hover={{ bg: 'primary_dark' }}
+        onClick={onOpen}
+      >
+        Add Review
+      </Button>
 
       <Modal
         isOpen={isOpen}

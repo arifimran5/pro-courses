@@ -1,8 +1,8 @@
 import React from 'react';
+import Link from 'next/link';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Button, Divider, Flex, Heading } from '@chakra-ui/react';
 import { useUser } from './context/auth.context';
-import Link from 'next/link';
 
 const Navbar = () => {
   const { session } = useUser();
