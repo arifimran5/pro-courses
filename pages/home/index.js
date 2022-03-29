@@ -10,13 +10,14 @@ import {
   IconButton,
   Flex,
   Divider,
+  MenuDivider,
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useUser } from '../components/context/auth.context';
-import AddPostModal from '../components/Feed/AddPostModal';
-import PostList from '../components/Feed/PostList';
-import { supabase } from '../utils/supabaseinit';
+import { useUser } from '../../components/context/auth.context';
+import AddPostModal from '../../components/Feed/AddPostModal';
+import PostList from '../../components/Feed/PostList';
+import { supabase } from '../../utils/supabaseinit';
 import Avatar from 'boring-avatars';
 import Link from 'next/link';
 
@@ -81,6 +82,12 @@ const Home = ({ data }) => {
                 <MenuItem>
                   <Heading size='md'>Hi {username} 👋</Heading>
                 </MenuItem>
+                <MenuItem>
+                  <Link href='/home/dashboard' passHref>
+                    <a>Dashboard</a>
+                  </Link>
+                </MenuItem>
+                <MenuDivider />
                 <MenuItem>
                   {' '}
                   <AddPostModal onPost={postHandler} />

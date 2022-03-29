@@ -8,7 +8,6 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  Heading,
   useDisclosure,
   FormControl,
   FormLabel,
@@ -22,7 +21,7 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-  FormErrorMessage,
+  useToast,
 } from '@chakra-ui/react';
 import { useUser } from '../context/auth.context';
 import { supabase } from '../../utils/supabaseinit';
@@ -39,6 +38,7 @@ const AddPostModal = ({ onPost }) => {
   const [postCreateError, setPostCreateError] = useState(false);
   const [formFocus, setFormFocus] = useState(false);
   const [formError, setFormError] = useState(false);
+  const toast = useToast();
 
   const { user } = useUser();
 
@@ -54,7 +54,13 @@ const AddPostModal = ({ onPost }) => {
       !formFocus
     ) {
       setFormError(true);
-      alert('Please fill out all fields');
+      toast({
+        title: 'Please fill out all details',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+        position: 'top-right',
+      });
       return;
     } else {
       postHandler();
@@ -81,7 +87,14 @@ const AddPostModal = ({ onPost }) => {
       setPostCreateError(true);
       alert('Error creating post');
     } else {
-      // alert('post created');
+      toast({
+        title: 'Post created.',
+        // description: 'Lesss go!!',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+        position: 'top-right',
+      });
       onClose();
     }
   };

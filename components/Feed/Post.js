@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex, Heading, Link, Text } from '@chakra-ui/react';
 import { getUserNameFromEmail } from '../../utils/getUserNameUtil';
-import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { ExternalLinkIcon, StarIcon } from '@chakra-ui/icons';
 import { supabase } from '../../utils/supabaseinit';
 
 const Post = (post) => {
@@ -11,6 +11,11 @@ const Post = (post) => {
       boxShadow='1px 2px 10px #5B89FF21'
       px='5'
       py='3'
+      _hover={{
+        transform: 'translateY(-3px)',
+        transition: 'all .3s ease-in-out',
+      }}
+      borderRadius='xl'
       width={['95%', '80%']}
       maxW='40em'
     >
@@ -20,6 +25,7 @@ const Post = (post) => {
         py='1'
         px='2'
         bg='primary'
+        borderRadius='3xl'
         mb='2'
         w='max-content'
         fontSize='smaller'
@@ -38,7 +44,7 @@ const Post = (post) => {
       <Text>{post.review}</Text>
       <Flex alignItems='center' mt='2'>
         <Rating rating={post.rating} />
-        <Text fontWeight='medium' fontSize='sm' ml='5'>
+        <Text fontWeight='medium' fontSize='sm' ml='2'>
           {post.isFree ? 'Free ✅' : 'Paid 💰'}
         </Text>
       </Flex>
@@ -53,13 +59,20 @@ const Rating = ({ rating }) => {
   }
 
   return (
-    <>
+    <Box
+      w='8em'
+      bg='gray.50'
+      px='1'
+      py='1'
+      borderRadius='3xl'
+      textAlign='center'
+    >
       {stars.map((star, index) => (
         <Text letterSpacing='tighter' display='inline' key={index}>
           {star}
         </Text>
       ))}
-    </>
+    </Box>
   );
 };
 
