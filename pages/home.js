@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -22,6 +22,7 @@ import Link from 'next/link';
 
 const Home = ({ data }) => {
   const [postData, setPostData] = useState(data);
+  const [isFireFox, setFireFox] = useState(null);
   const router = useRouter();
   const { logout, username } = useUser();
 
@@ -101,17 +102,16 @@ const Home = ({ data }) => {
   );
 };
 
-export async function getStaticProps({ req }) {
+export async function getServerSideProps({ req }) {
   const { data, error } = await supabase.from('post').select('*');
   const { user } = await supabase.auth.api.getUserByCookie(req);
-
   if (!user) {
     return {
       props: {},
       redirect: { destination: '/', permanent: false },
     };
   }
-  return { props: { user, data, error }, revalidate: 20 };
+  return { props: { user, data, error } };
 }
 
 export default Home;
