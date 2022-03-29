@@ -48,7 +48,7 @@ const Home = ({ data }) => {
       <Head>
         <title>Home | Pro-Courses</title>
         <meta name='description' content='Home page of pro-courses' />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/favicon.svg' />
       </Head>
       <Box position='sticky' top='0' filter='auto' backdropFilter='blur(1px)'>
         <Flex
@@ -58,7 +58,7 @@ const Home = ({ data }) => {
           py='4'
           bg={isFireFox ? '#fafafa99' : '#fafafa50'}
         >
-          <Link href='/home' passHref>
+          <Link href='/' passHref>
             <a>
               <Heading
                 fontWeight='black'

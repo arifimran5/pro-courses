@@ -16,7 +16,7 @@ const Dashboard = ({ data }) => {
       <Head>
         <title>Dashboard | {username}</title>
         <meta name='description' content='Home page of pro-courses' />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/favicon.svg' />
       </Head>
       <Box
         ml={['5', '10']}

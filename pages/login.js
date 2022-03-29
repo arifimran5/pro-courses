@@ -23,7 +23,7 @@ const Login = () => {
       <Head>
         <title>Login | Pro-Courses</title>
         <meta name='description' content='Login page of pro-courses' />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/favicon.svg' />
       </Head>
       <Auth />
     </Box>
