@@ -15,7 +15,7 @@ import {
 import { supabase } from '../../utils/supabaseinit';
 import { DeleteIcon } from '@chakra-ui/icons';
 
-const DeleteModal = ({ id, onDelete }) => {
+const DeleteModal = ({ id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const initialRef = useRef();
@@ -31,6 +31,8 @@ const DeleteModal = ({ id, onDelete }) => {
         position: 'top-right',
       });
     } else {
+      onClose();
+      window.location.reload();
       toast({
         title: 'Post deleted',
         status: 'success',
@@ -38,14 +40,12 @@ const DeleteModal = ({ id, onDelete }) => {
         isClosable: true,
         position: 'top-right',
       });
-      onDelete(id);
-      onClose();
     }
   };
 
   return (
     <>
-      <Text onClick={onOpen}>
+      <Text w='100%' onClick={onOpen}>
         Delete <DeleteIcon ml='2' mb='1' />
       </Text>
 

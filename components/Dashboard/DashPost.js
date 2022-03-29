@@ -16,10 +16,15 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import DeleteModal from './DeleteModal';
+import EditModal from './EditModal';
 
-const DashPost = ({ post, onDelete }) => {
+const DashPost = ({ post }) => {
+  const [newPost, setNewPost] = useState(post);
+  const onEdit = (data) => {
+    setNewPost(data);
+  };
   return (
     <Box
       boxShadow='1px 2px 10px #5B89FF21'
@@ -39,19 +44,16 @@ const DashPost = ({ post, onDelete }) => {
         />
         <MenuList>
           <MenuItem _hover={{ bg: 'primary' }}>
-            <Text size='md'>
-              Edit
-              <EditIcon ml='2' mb='1' />
-            </Text>
+            <EditModal post={post} onEdit={onEdit} />
           </MenuItem>
           <MenuItem _hover={{ bg: 'red.300' }}>
-            <DeleteModal id={post.id} onDelete={onDelete} />
+            <DeleteModal id={post.id} />
           </MenuItem>
         </MenuList>
       </Menu>
 
-      <Heading fontSize='lg'>{post.title}</Heading>
-      <Text>{post.review}</Text>
+      <Heading fontSize='lg'>{newPost.title}</Heading>
+      <Text>{newPost.review}</Text>
     </Box>
   );
 };

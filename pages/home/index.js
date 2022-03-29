@@ -11,6 +11,7 @@ import {
   Flex,
   Divider,
   MenuDivider,
+  Text,
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -69,7 +70,7 @@ const Home = ({ data }) => {
               </Heading>
             </a>
           </Link>
-          <Box>
+          <Box zIndex='20'>
             <Menu>
               <MenuButton
                 as={IconButton}
@@ -84,7 +85,14 @@ const Home = ({ data }) => {
                 </MenuItem>
                 <MenuItem>
                   <Link href='/home/dashboard' passHref>
-                    <a>Dashboard</a>
+                    <Text
+                      w='100%'
+                      textAlign='center'
+                      fontWeight='medium'
+                      as='a'
+                    >
+                      Dashboard
+                    </Text>
                   </Link>
                 </MenuItem>
                 <MenuDivider />
@@ -94,7 +102,13 @@ const Home = ({ data }) => {
                 </MenuItem>
                 <MenuItem>
                   {' '}
-                  <Button as='a' width='100%' onClick={logoutHandler}>
+                  <Button
+                    color='black'
+                    _hover={{ bg: 'primary_dark', color: 'white' }}
+                    as='a'
+                    width='100%'
+                    onClick={logoutHandler}
+                  >
                     Logout
                   </Button>
                 </MenuItem>

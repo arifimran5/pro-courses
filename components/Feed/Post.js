@@ -1,8 +1,7 @@
 import React from 'react';
-import { Box, Flex, Heading, Link, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text } from '@chakra-ui/react';
 import { getUserNameFromEmail } from '../../utils/getUserNameUtil';
-import { ExternalLinkIcon, StarIcon } from '@chakra-ui/icons';
-import { supabase } from '../../utils/supabaseinit';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 const Post = (post) => {
   const username = getUserNameFromEmail(post.user);

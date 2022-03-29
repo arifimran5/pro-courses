@@ -8,8 +8,10 @@ import DashPostList from '../../components/Dashboard/DashPostList';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 
 const Dashboard = ({ data }) => {
+  data.sort(
+    (a, b) => Number(new Date(b.created_at)) - Number(new Date(a.created_at))
+  );
   const { username } = useUser();
-  console.log(data);
   return (
     <div>
       {' '}
