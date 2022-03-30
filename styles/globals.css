@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 .top-page {
-  height: 110vh;
+  /* height: 110vh; */
   background: url('/gradient-main.jpg');
   background-position: center;
   background-size: cover;
