@@ -22,16 +22,23 @@ import { supabase } from '../../utils/supabaseinit';
 import Avatar from 'boring-avatars';
 import Link from 'next/link';
 
-const Home = ({ data }) => {
-  const [postData, setPostData] = useState(data);
+const Home = () => {
   const [isFireFox, setFireFox] = useState(null);
+  const [clientData, setClientData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { logout, username } = useUser();
 
   useEffect(() => {
     let firefox =
       window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    const fetchData = async () => {
+      const { data, error } = await supabase.from('post').select('*');
+      setClientData(data);
+    };
+    fetchData();
 
+    setLoading(false);
     setFireFox(firefox ?? true);
   }, []);
 
@@ -118,13 +125,17 @@ const Home = ({ data }) => {
         </Flex>
         <Divider />
       </Box>
-      <PostList posts={postData} />
+      {loading && (
+        <Heading textAlign='center' mt='5'>
+          Loading🥲
+        </Heading>
+      )}
+      {!loading && <PostList posts={clientData} />}
     </Box>
   );
 };
 
 export async function getServerSideProps({ req }) {
-  const { data, error } = await supabase.from('post').select('*');
   const { user } = await supabase.auth.api.getUserByCookie(req);
   if (!user) {
     return {
@@ -132,7 +143,7 @@ export async function getServerSideProps({ req }) {
       redirect: { destination: '/', permanent: false },
     };
   }
-  return { props: { user, data, error } };
+  return { props: {} };
 }
 
 export default Home;
