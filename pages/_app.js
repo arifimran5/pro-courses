@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
+import Router from 'next/router';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '../theme';
 import '../styles/globals.css';
 import { supabase } from '../utils/supabaseinit';
 import { UserContextProvider } from '../components/context/auth.context';
+import NextNProgress from 'nextjs-progressbar';
+
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
@@ -25,6 +28,7 @@ function MyApp({ Component, pageProps }) {
   }
   return (
     <UserContextProvider>
+      <NextNProgress color='#5B89FF' />
       <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
