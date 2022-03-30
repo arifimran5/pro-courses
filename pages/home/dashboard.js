@@ -72,10 +72,6 @@ const Dashboard = ({ user }) => {
 
 export async function getServerSideProps({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req);
-  // const { data, error } = await supabase
-  //   .from('post')
-  //   .select('*')
-  //   .eq('user', user.email);
   if (!user) {
     return {
       props: {},

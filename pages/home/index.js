@@ -48,7 +48,7 @@ const Home = () => {
   };
 
   const postHandler = (data) => {
-    setPostData([data, ...postData]);
+    setClientData([data, ...clientData]);
   };
 
   return (
