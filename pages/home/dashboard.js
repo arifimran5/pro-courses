@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Box, Heading, Text } from '@chakra-ui/react';
@@ -7,8 +7,21 @@ import { supabase } from '../../utils/supabaseinit';
 import DashPostList from '../../components/Dashboard/DashPostList';
 import { ArrowBackIcon } from '@chakra-ui/icons';
 
-const Dashboard = ({ data }) => {
-  data.sort(
+const Dashboard = ({ user }) => {
+  const [dashData, setDashData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, error } = await supabase
+        .from('post')
+        .select('*')
+        .eq('user', user.email);
+      setDashData(data);
+    };
+    fetchData();
+    setLoading(false);
+  }, [user]);
+  dashData.sort(
     (a, b) => Number(new Date(b.created_at)) - Number(new Date(a.created_at))
   );
   const { username } = useUser();
@@ -47,24 +60,29 @@ const Dashboard = ({ data }) => {
         Dashboard
       </Heading>
       <Text textAlign='center'>Your posts 📪</Text>
-      <DashPostList posts={data} />
+      {loading && (
+        <Heading textAlign='center' mt='5'>
+          Loading🥲
+        </Heading>
+      )}
+      {!loading && <DashPostList posts={dashData} />}
     </div>
   );
 };
 
 export async function getServerSideProps({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req);
-  const { data, error } = await supabase
-    .from('post')
-    .select('*')
-    .eq('user', user.email);
+  // const { data, error } = await supabase
+  //   .from('post')
+  //   .select('*')
+  //   .eq('user', user.email);
   if (!user) {
     return {
       props: {},
       redirect: { destination: '/', permanent: false },
     };
   }
-  return { props: { user, data, error } };
+  return { props: { user } };
 }
 
 export default Dashboard;
