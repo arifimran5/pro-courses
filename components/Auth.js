@@ -8,6 +8,7 @@ import {
   Heading,
   Input,
   Stack,
+  Text,
 } from '@chakra-ui/react';
 import { useRef, useState } from 'react';
 import { supabase } from '../utils/supabaseinit';
@@ -31,11 +32,24 @@ const Auth = () => {
 
   if (submitted) {
     return (
-      <Box textAlign='center'>
-        <Heading as='h1' size='lg'>
-          check your email to sign in
-        </Heading>
-      </Box>
+      <Flex
+        flexDirection='column'
+        justifyContent='center'
+        alignItems='center'
+        h='100vh'
+        textAlign='center'
+        px='5'
+      >
+        <Box px='10' py='5' bg='yellow.400' color='black' borderRadius='lg'>
+          <Heading as='h1' size='lg'>
+            check your email to sign in
+          </Heading>
+          <Text>
+            Do check spam folder of your email. If this is the case. Try to
+            login again after marking it not sus.
+          </Text>
+        </Box>
+      </Flex>
     );
   }
   return (
