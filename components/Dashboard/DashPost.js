@@ -1,17 +1,10 @@
-import {
-  ChevronDownIcon,
-  DeleteIcon,
-  EditIcon,
-  InfoIcon,
-} from '@chakra-ui/icons';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   Box,
-  Button,
   Heading,
   IconButton,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Text,

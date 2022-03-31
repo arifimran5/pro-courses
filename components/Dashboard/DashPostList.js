@@ -1,5 +1,5 @@
+import React from 'react';
 import { Flex } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
 import DashPost from './DashPost';
 
 const DashPostList = ({ posts }) => {
