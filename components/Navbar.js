@@ -1,11 +1,19 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { Button, Divider, Flex, Heading } from '@chakra-ui/react';
+import {
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  useBreakpoint,
+  useBreakpointValue,
+} from '@chakra-ui/react';
 import { useUser } from './context/auth.context';
 
 const Navbar = () => {
   const { session } = useUser();
+  const NavbarButtonSize = useBreakpointValue({ base: 'sm', sm: 'md' });
   return (
     <>
       <Flex
@@ -20,7 +28,7 @@ const Navbar = () => {
         {!session && (
           <Link href='/login' passHref>
             <Button
-              size='sm'
+              size={NavbarButtonSize}
               bg='primary'
               color='white'
               rightIcon={<ArrowForwardIcon />}
@@ -33,7 +41,7 @@ const Navbar = () => {
         {session && (
           <Link href='/home' passHref>
             <Button
-              size='sm'
+              size={NavbarButtonSize}
               bg='primary'
               color='white'
               rightIcon={<ArrowForwardIcon />}

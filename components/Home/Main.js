@@ -22,7 +22,7 @@ const Main = () => {
       </Text>
       <Link href='/login' passHref>
         <Button
-          size='md'
+          size='lg'
           bg='primary'
           color='white'
           mt={['8', '16']}
