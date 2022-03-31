@@ -6,7 +6,6 @@ import {
   Divider,
   Flex,
   Heading,
-  useBreakpoint,
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { useUser } from './context/auth.context';
