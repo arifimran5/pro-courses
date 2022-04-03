@@ -1,8 +1,6 @@
 import { Box, Divider, Flex, Link, Text } from '@chakra-ui/react';
 import Head from 'next/head';
 import Image from 'next/image';
-// import { useRouter } from 'next/router';
-// import { useUser } from '../components/context/auth.context';
 import Main from '../components/Home/Main';
 import Navbar from '../components/Navbar';
 
